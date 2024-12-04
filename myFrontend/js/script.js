@@ -1,4 +1,5 @@
 // login & register
+const api = "http://localhost:3000";
 registerPage = () => {
     console.log("click register");
     document.querySelector(".register-page").classList.remove("d-none");
@@ -21,11 +22,39 @@ loginForm = (event) => {
         document.querySelector(".login-pass-Error").innerHTML = "";
     }
     let loginData = {
-        username: event.target.username.value,
-        password: event.target.password.value
+        userEmail: event.target.username.value,
+        userPassword: event.target.password.value
     }
-    console.log(loginData)
+    loginApi(loginData)
 }
+// login API
+const loginApi = async (inputData) => {
+    try {
+        const response = await fetch(`${api}/userLogin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                inputData
+            ),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message);
+        }
+
+        const LoginData = await response.json();
+        console.log(LoginData);
+        localStorage.setItem("user", JSON.stringify(LoginData));
+        window.location.href = "main.html";
+    } catch (err) {
+        alert(`Error Login API: ${err}`);
+        console.log(err.message)
+    }
+};
+
 registerForm = (event) => {
     event.preventDefault();
     if (event.target.username.value == "") {
@@ -44,47 +73,42 @@ registerForm = (event) => {
         document.querySelector(".pass-Error").innerHTML = "";
     }
     let registerData = {
-        username: event.target.username.value,
-        userimg: event.target.userimg.value,
-        email: event.target.email.value,
-        password: event.target.password.value
+        userName: event.target.username.value,
+        userImg: event.target.userimg.value,
+        userEmail: event.target.email.value,
+        userPassword: event.target.password.value
     }
-    console.log(registerData)
+    registerApi(registerData, event)
+}
+// Register API
+const registerApi = async (inputData, event) => {
+    try {
+        const response = await fetch(`${api}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                inputData
+            ),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message);
+        }
+
+        const registerData = await response.json(); // Parse the JSON response
+        alert("Register Successfully");
+        event.target.reset();
+        document.querySelector(".register-page").classList.add("d-none");
+        document.querySelector(".login-page").classList.remove("d-none");
+    } catch (err) {
+        alert(`Error Register API: ${err}`);
+        console.log(err.message)
+    }
 }
 
-const user = () => {
-    fetch('http://localhost:3000')
-        .then(response => response.text())
-        .then(data => {
-            let userdata = JSON.parse(data);
-            console.log(userdata)
-        })
-        .catch(error => console.error('Error:', error));
-}
-user();
 
-// expense Add 
-addExpense = (event) => {
-    event.preventDefault();
-    if (event.target.expenseName.value == "") {
-        document.querySelector(".add-name-Error").innerHTML = "Required";
-    } else {
-        document.querySelector(".add-name-Error").innerHTML = "";
-    }
-    if (event.target.expenseDate.value == "") {
-        document.querySelector(".add-date-Error").innerHTML = "Required";
-    } else {
-        document.querySelector(".add-date-Error").innerHTML = "";
-    }
-    if (event.target.expenseAmount.value == "") {
-        document.querySelector(".add-amount-Error").innerHTML = "Required";
-    } else {
-        document.querySelector(".add-amount-Error").innerHTML = "";
-    }
-    let expenseData = {
-        expenseName: event.target.expenseName.value,
-        expenseDate: event.target.expenseDate.value,
-        expenseAmount: event.target.expenseAmount.value
-    }
-    console.log(expenseData)
-}
+
+

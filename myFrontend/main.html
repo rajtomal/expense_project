@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- login & register Part Start -->
+    <!-- <div class="login-register-part">
+        <div class="form-container login-page">
+            <p class="title">Login</p>
+            <form onsubmit="loginForm(event)" class="form">
+                <div class="input-group">
+                    <label for="username">Email</label>
+                    <input type="email" name="username" id="username" placeholder="Enter Email">
+                    <p class="login-name-Error text-danger p-0 pt-2 m-0"></p>
+                </div>
+                <div class="input-group mt-3">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter Password">
+                    <p class="login-pass-Error text-danger p-0 pt-2 m-0"></p>
+                </div>
+                <button type="submit" class="sign mt-4">Log In</button>
+            </form>
+            <p class="signup mt-4">Don't have an account?
+                <button rel="noopener noreferrer" class="" onclick="registerPage()">Register</button>
+            </p>
+        </div>
+        <div class="form-container register-page d-none">
+            <p class="title">Register</p>
+            <form onsubmit="registerForm(event)" class="form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" name="username" placeholder="Enter Name">
+                    <p class="name-Error text-danger p-0 pt-2 m-0"></p>
+                </div>
+                <div class="input-group mt-3">
+                    <label>Profile Picture</label>
+                    <input type="text" name="userimg" placeholder="Enter Picture Link">
+                </div>
+                <div class="input-group mt-3">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter Email">
+                    <p class="email-Error text-danger p-0 pt-2 m-0"></p>
+                </div>
+                <div class="input-group mt-3">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter Password">
+                    <p class="pass-Error text-danger p-0 pt-2 m-0"></p>
+                </div>
+                <button type="submit" class="sign mt-4">Log In</button>
+            </form>
+            <p class="signup mt-4">Already have an account?
+                <button rel="noopener noreferrer" class="" onclick="loginPage()">Log in</button>
+            </p>
+        </div>
+    </div> -->
+    <!-- login & register Part End -->
+
+    <!-- main part start -->
+    <div class="main-part">
+        <!-- Navbar start -->
+        <nav class="navbar custom-navbar">
+            <div class="container">
+                <div class="logo">
+                    <img src="./img/logo.png" alt="">
+                    <div>
+                        <h1>Expense Tracker</h1>
+                        <p>An application to track expenses</p>
+                    </div>
+                </div>
+                <div class="nav-items">
+                    <div class="btn-group">
+                        <a class="nav-link dropdown-toggle custom-profile" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-flex align-items-center gap-3">
+                                <img class="profile-img" src="./img/logo.png" alt="">
+                                <div class="profle-info">
+                                    <h5 class="user_name">John Doe</h5>
+                                    <p class="user_email">Admin</p>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" onclick="logout()" href="#"><svg class="me-2"
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2"
+                                            d="M16 4h3a2 2 0 0 1 2 2v1m-5 13h3a2 2 0 0 0 2-2v-1M4.425 19.428l6 1.8A2 2 0 0 0 13 19.312V4.688a2 2 0 0 0-2.575-1.916l-6 1.8A2 2 0 0 0 3 6.488v11.024a2 2 0 0 0 1.425 1.916M16.001 12h5m0 0l-2-2m2 2l-2 2" />
+                                    </svg>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar end -->
+
+        <div class="main-content">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center main-title">
+                    <div>
+                        <h1>My Expenses List</h1>
+                        <p>Know where your money goes—track your expenses effortlessly</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                            Expense</button>
+                    </div>
+                </div>
+                <div id="expense-list" class="row mt-5">
+                    <!-- <div class="col-md-4">
+                        <div class="card">
+                            <h2>Expense Tracker</h2>
+                            <div class="card-text d-flex justify-content-between align-items-center">
+                                <p>20/20/2023</p>
+                                <h4>$ <span>200</span></h4>
+                            </div>
+                            <div class="card-action">
+                                <button class="edit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="1.5"
+                                            d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0zM15 6l3 3m-5 11h8" />
+                                    </svg></button>
+                                <button class="delete"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
+                                    </svg></button>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main part end -->
+
+    <!-- add Modal -->
+    <div class="modal fade modal-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Expense Add</h1>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                        </svg></button>
+                </div>
+                <form onsubmit="addExpense(event)" class="form mt-0">
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <label>Expense Name</label>
+                            <input type="text" name="expenseName" placeholder="Enter Expense Name">
+                            <p class="add-name-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                        <div class="input-group mt-3">
+                            <label>Expense Date</label>
+                            <input type="date" name="expenseDate" placeholder="Select Date">
+                            <p class="add-date-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                        <div class="input-group mt-3">
+                            <label>Expense Amount</label>
+                            <input type="number" name="expenseAmount" placeholder="Enter Expense Amount">
+                            <p class="add-amount-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- edit Modal -->
+    <div class="modal fade modal-dark" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabeledit"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabeledit">Expense Edit</h1>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                        </svg></button>
+                </div>
+                <form onsubmit="editFormExpense(event)" class="form mt-0">
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <label>Expense Name</label>
+                            <input class="edit-expense-name" type="text" name="expenseName"
+                                placeholder="Enter Expense Name">
+                            <p class="edit-name-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                        <div class="input-group mt-3">
+                            <label>Expense Date</label>
+                            <input class="edit-expense-date" type="date" name="expenseDate" placeholder="Select Date">
+                            <p class="edit-date-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                        <div class="input-group mt-3">
+                            <label>Expense Amount</label>
+                            <input class="edit-expense-amount" type="number" name="expenseAmount"
+                                placeholder="Enter Expense Amount">
+                            <p class="edit-amount-Error text-danger p-0 pt-2 m-0"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Delete Modal -->
+    <div class="modal fade modal-dark" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabelDelete"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabelDelete">Delete Confirmation</h1>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                        </svg></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="deleteExpense()" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/mainPage.js"></script>
+</body>
+
+</html>

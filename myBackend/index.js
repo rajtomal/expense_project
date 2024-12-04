@@ -53,7 +53,6 @@ app.post('/userLogin', (req, res) => {
         } else {
             // User not found
             res.status(404).json({
-                success: false,
                 message: 'Invalid email or password.'
             });
         }
@@ -187,6 +186,12 @@ app.put('/putExpense/:id', (req, res) => {
 // delete expense
 app.delete('/deleteExpense/:id', (req, res) => {
     const id = req.params.id;
+    if (!req.params.id || isNaN(id) || req.params.id == undefined) {
+        return res.status(400).json({
+            success: false,
+            message: 'Please provide an id.'
+        });
+    }
     const sql = 'DELETE FROM expense WHERE id = ?';
     db.query(sql, [id], (err, results) => {
         if (err) {
