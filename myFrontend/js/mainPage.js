@@ -7,6 +7,7 @@ var userData;
 const firstLoad = () => {
     document.querySelector(".user_name").innerHTML = currentUser.name;
     document.querySelector(".user_email").innerHTML = currentUser.email;
+    document.querySelector(".profile-img").src = currentUser.img;
     loadUserData({
         userId: currentUser.id
     });

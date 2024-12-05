@@ -48,7 +48,8 @@ app.post('/userLogin', (req, res) => {
             res.json({
                 id: user.userId,
                 name: user.userName,
-                email: user.userEmail
+                email: user.userEmail,
+                img: user.userImg
             });
         } else {
             // User not found
